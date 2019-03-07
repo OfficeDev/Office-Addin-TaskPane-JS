@@ -1,4 +1,5 @@
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const fs = require("fs");
 const webpack = require("webpack");
@@ -34,6 +35,12 @@ module.exports = (env, options) => {
         template: "./src/taskpane/taskpane.html",
         chunks: ["taskpane"]
       }),
+      new CopyWebpackPlugin([
+        {
+          to: "taskpane.css",
+          from: "./src/taskpane/taskpane.css"
+        }
+      ]),
       new HtmlWebpackPlugin({
         filename: "ribbon.html",
         template: "./src/ribbon/ribbon.html",
