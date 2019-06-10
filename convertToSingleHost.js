@@ -35,20 +35,21 @@ async function convertProjectToSingleHost(host) {
 
   // delete all test files by default for now - eventually we want to convert the tests by default
   if (convertTest && (host === "excel" || host === "word")) {
-    // copy over host-specific taskpane test code to test-taskpane.ts
-    const testTaskpaneContent = await readFileAsync(`./test/src/${host}-test-taskpane.ts`, "utf8");
+    // copy over host-specific taskpane test code to test-taskpane.js
+    const testTaskpaneContent = await readFileAsync(`./test/src/${host}-test-taskpane.js`, "utf8");
     const updatedTestTaskpaneContent = testTaskpaneContent.replace(`../../src/taskpane/${host}`, `../../src/taskpane/taskpane`);
-    await writeFileAsync(`./test/src/test-taskpane.ts`, updatedTestTaskpaneContent);
+    await writeFileAsync(`./test/src/test-taskpane.js`, updatedTestTaskpaneContent);
 
-    // update ui-test.ts to only run against specified host
-    const testContent = await readFileAsync(`./test/ui-test.ts`, "utf8");
+    // update ui-test.js to only run against specified host
+    const testFile = './test/ui-test.js'
+    const testContent = await readFileAsync(testFile, "utf8");
     const updatedTestContent = testContent.replace(`const hosts = ["Excel", "Word"]`, `const hosts = ["${host}"]`);
-    await writeFileAsync(`./test/ui-test.ts`, updatedTestContent);
+    await writeFileAsync(testFile, updatedTestContent);
 
     // delete all host-specific test files after converting to single host
     hosts.forEach(async function (host) {
       if (host == "excel" || host == "word") {
-        await unlinkFileAsync(`./test/src/${host}-test-taskpane.ts`);
+        await unlinkFileAsync(`./test/src/${host}-test-taskpane.js`);
       }
     });
   }

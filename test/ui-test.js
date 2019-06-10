@@ -7,11 +7,11 @@ import * as path from "path";
 import * as testHelpers from "./src/test-helpers";
 const hosts = ["Excel", "Word"];
 const manifestPath = path.resolve(`${process.cwd()}/test/test-manifest.xml`);
-const testServerPort: number = 4201;
+const testServerPort = 4201;
 
 hosts.forEach(function (host) {
     const testServer = new officeAddinTestServer.TestServer(testServerPort);
-    let testValues: any = [];
+    var testValues = [];
 
     describe(`Test ${host} Task Pane Project`, function () {
         before(`Setup test environment and sideload ${host}`, async function () {

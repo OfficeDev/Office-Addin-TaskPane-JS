@@ -1,9 +1,9 @@
 import * as childProcess from "child_process";
 import * as cps from "current-processes";
 
-export async function closeDesktopApplication(application: string): Promise<boolean> {
-    return new Promise<boolean>(async function (resolve, reject) {
-        let processName: string = "";
+export async function closeDesktopApplication(application) {
+    return new Promise(async function (resolve, reject) {
+        let processName = "";
         switch (application.toLowerCase()) {
             case "excel":
                 processName = "Excel";
@@ -28,7 +28,7 @@ export async function closeDesktopApplication(application: string): Promise<bool
         }
 
         try {
-            let appClosed: boolean = false;
+            let appClosed = false;
             if (process.platform == "win32") {
                 const cmdLine = `tskill ${processName}`;
                 appClosed = await executeCommandLine(cmdLine);
@@ -48,8 +48,8 @@ export async function closeDesktopApplication(application: string): Promise<bool
     });
 }
 
-export async function closeWorkbook(): Promise<void> {
-    return new Promise<void>(async (resolve, reject) => {
+export async function closeWorkbook() {
+    return new Promise(async (resolve, reject) => {
         try {
             await Excel.run(async context => {
                 // @ts-ignore
@@ -62,7 +62,7 @@ export async function closeWorkbook(): Promise<void> {
     });
 }
 
-export function addTestResult(testValues: any[], resultName: string, resultValue: any, expectedValue: any) {
+export function addTestResult(testValues, resultName, resultValue, expectedValue) {
     var data = {};
     data["expectedValue"] = expectedValue;
     data["resultName"] = resultName;
@@ -70,28 +70,24 @@ export function addTestResult(testValues: any[], resultName: string, resultValue
     testValues.push(data);
 }
 
-export async function sleep(ms: number): Promise<any> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function getProcessId(processName: string): Promise<number> {
-    return new Promise<number>(async function (resolve, reject) {
-        cps.get(function (err: Error, processes: any) {
+async function getProcessId(processName) {
+    return new Promise(async function (resolve, reject) {
+        cps.get(function (err, processes) {
             try {
-                const processArray = processes.filter(function (p: any) {
+                const processArray = processes.filter(function (p) {
                     return (p.name.indexOf(processName) > 0);
                 });
                 resolve(processArray.length > 0 ? processArray[0].pid : undefined);
             }
-            catch (err) {
+            catch {
                 reject(err);
             }
         });
     });
 }
 
-async function executeCommandLine(cmdLine: string): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
+async function executeCommandLine(cmdLine) {
+    return new Promise((resolve, reject) => {
         childProcess.exec(cmdLine, (error) => {
             if (error) {
                 reject(false);

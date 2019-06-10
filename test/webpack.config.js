@@ -11,7 +11,7 @@ module.exports = async (env, options) => {
         devtool: "source-map",
         entry: {
             polyfill: "@babel/polyfill",
-            test: path.resolve(__dirname, './src/test-taskpane.ts')
+            test: path.resolve(__dirname, './src/test-taskpane.js')
         },
         output: { path: path.resolve(__dirname, "testBuild") },
         resolve: {
@@ -23,23 +23,23 @@ module.exports = async (env, options) => {
         module: {
             rules: [
                 {
-                    test: /\.ts$/,
-                    exclude: /node_modules/,
-                    use: "babel-loader"
-                },  
-                {
-                    test: /\.tsx?$/,
-                    exclude: /node_modules/,
-                    use: "ts-loader"
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ["@babel/preset-env"]
+                    }
+                    }
                 },
                 {
-                    test: /\.html$/,
-                    exclude: /node_modules/,
-                    use: "html-loader"
+                test: /\.html$/,
+                exclude: /node_modules/,
+                use: "html-loader"
                 },
                 {
-                    test: /\.(png|jpg|jpeg|gif)$/,
-                    use: "file-loader"
+                test: /\.(png|jpg|jpeg|gif)$/,
+                use: "file-loader"
                 }
             ]
         },
