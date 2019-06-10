@@ -23,23 +23,23 @@ module.exports = async (env, options) => {
         module: {
             rules: [
                 {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        presets: ["@babel/preset-env"]
-                    }
+                    test: /\.js$/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: "babel-loader",
+                        options: {
+                            presets: ["@babel/preset-env"]
+                        }
                     }
                 },
                 {
-                test: /\.html$/,
-                exclude: /node_modules/,
-                use: "html-loader"
+                    test: /\.html$/,
+                    exclude: /node_modules/,
+                    use: "html-loader"
                 },
                 {
-                test: /\.(png|jpg|jpeg|gif)$/,
-                use: "file-loader"
+                    test: /\.(png|jpg|jpeg|gif)$/,
+                    use: "file-loader"
                 }
             ]
         },
