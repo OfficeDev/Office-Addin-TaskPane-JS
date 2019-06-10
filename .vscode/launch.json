@@ -17,8 +17,8 @@
         "--colors",
         "${workspaceFolder}/test",
         "-r",
-        "ts-node/register",
-        "${workspaceFolder}/test/*.ts"
+        "esm",
+        "${workspaceFolder}/test/*.js"
       ],
       "internalConsoleOptions": "openOnSessionStart",
       "runtimeArgs": [

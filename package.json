@@ -38,8 +38,6 @@
     "@babel/core": "^7.4.5",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^12.0.4",
     "@types/office-js": "^1.0.9",
     "@types/office-runtime": "^1.0.8",
     "babel-loader": "^8.0.6",
