@@ -37,7 +37,7 @@ async function convertProjectToSingleHost(host) {
   if (convertTest && (host === "excel" || host === "word")) {
     // copy over host-specific taskpane test code to test-taskpane.ts
     const testTaskpaneContent = await readFileAsync(`./test/src/${host}-test-taskpane.ts`, "utf8");
-    const updatedTestTaskpaneContent = testTaskpaneContent.replace(`../../src/taskpane/${host}`, `../../src/taskpane/taskpane`);
+    const updatedTestTaskpaneContent = testTaskpaneContent.replace(`../../src/taskpane/${host}`, `../../src/taskpane/taskpane.js`);
     await writeFileAsync(`./test/src/test-taskpane.ts`, updatedTestTaskpaneContent);
 
     // update ui-test.ts to only run against specified host
