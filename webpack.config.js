@@ -15,7 +15,7 @@ module.exports = async (env, options) => {
       commands: "./src/commands/commands.js"
     },
     resolve: {
-      extensions: [".ts", ".tsx", ".html", ".js"]
+      extensions: [".ts", ".tsx", ".html", ".mjs", ".js"]
     },
     module: {
       rules: [
