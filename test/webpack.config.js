@@ -60,12 +60,13 @@ module.exports = async (env, options) => {
                 template: path.resolve(__dirname, './src/test-taskpane.html'),
                 chunks: ["polyfill", "test"]
             }),
-            new CopyWebpackPlugin([
+            new CopyWebpackPlugin({
+                patterns: [
                 {
                     to: "taskpane.css",
                     from: path.resolve(__dirname, './../src/taskpane/taskpane.css')
                 }
-            ]),
+                ]}),
         ],
         devServer: {
             headers: {
