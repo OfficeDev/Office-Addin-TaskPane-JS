@@ -22,15 +22,11 @@ export async function run() {
   /**
    * Insert your PowerPoint code here
    */
-  Office.context.document.setSelectedDataAsync(
-    "Hello World!",
-    {
-      coercionType: Office.CoercionType.Text
-    },
-    result => {
-      if (result.status === Office.AsyncResultStatus.Failed) {
-        console.error(result.error.message);
-      }
-    }
-  );
+  /**
+   * Insert your PowerPoint code here
+   */
+  const options = { coercionType: Office.CoercionType.Text };
+
+  await Office.context.document.setSelectedDataAsync(" ", options);
+  await Office.context.document.setSelectedDataAsync("Hello World!", options);
 }
