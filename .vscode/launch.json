@@ -55,6 +55,7 @@
       "port": 9229,
       "timeout": 600000,
       "webRoot": "${workspaceRoot}",
+      "preLaunchTask": "Debug: Outlook Desktop",
       "postDebugTask": "Stop Debug"
     },
     {
