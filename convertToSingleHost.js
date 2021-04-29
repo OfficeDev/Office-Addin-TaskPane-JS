@@ -5,7 +5,7 @@ const hosts = ["excel", "onenote", "outlook", "powerpoint", "project", "word"];
 const path = require("path");
 const util = require("util");
 const testPackages = ["@types/mocha", "@types/node", "current-processes", "mocha", "office-addin-test-helpers",
-  "office-addin-test-server", "ts-node", "ts-loader"];
+  "office-addin-test-server", "ts-node", "ts-loader", "@babel/preset-typescript"];
 const readFileAsync = util.promisify(fs.readFile);
 const unlinkFileAsync = util.promisify(fs.unlink);
 const writeFileAsync = util.promisify(fs.writeFile);
