@@ -20,14 +20,14 @@ module.exports = async (env, options) => {
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       taskpane: "./src/taskpane/taskpane.js",
-      commands: "./src/commands/commands.js"
+      commands: "./src/commands/commands.js",
     },
     output: {
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
       clean: true,
     },
     resolve: {
-      extensions: [".html", ".js"]
+      extensions: [".html", ".js"],
     },
     module: {
       rules: [
@@ -37,7 +37,7 @@ module.exports = async (env, options) => {
           use: {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env"]
+              presets: ["@babel/preset-env"],
             },
           },
         },
@@ -49,6 +49,9 @@ module.exports = async (env, options) => {
         {
           test: /\.(png|jpg|jpeg|gif|ico)$/,
           type: "asset/resource",
+          generator: {
+            filename: "assets/[name][ext][query]",
+          },
         },
       ],
     },
