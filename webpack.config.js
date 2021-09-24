@@ -1,14 +1,11 @@
 /* eslint-disable no-undef */
 
 const devCerts = require("office-addin-dev-certs");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const fs = require("fs");
-const webpack = require("webpack");
 
-const urlDev="https://localhost:3000/";
-const urlProd="https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
+const urlDev = "https://localhost:3000/";
+const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
@@ -23,14 +20,14 @@ module.exports = async (env, options) => {
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       taskpane: "./src/taskpane/taskpane.js",
-      commands: "./src/commands/commands.js"
+      commands: "./src/commands/commands.js",
     },
     output: {
-      sourceMapFilename: "[name].js.map",
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
+      clean: true,
     },
     resolve: {
-      extensions: [".html", ".js"]
+      extensions: [".html", ".js"],
     },
     module: {
       rules: [
@@ -38,9 +35,9 @@ module.exports = async (env, options) => {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader", 
+            loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env"]
+              presets: ["@babel/preset-env"],
             },
           },
         },
@@ -52,11 +49,13 @@ module.exports = async (env, options) => {
         {
           test: /\.(png|jpg|jpeg|gif|ico)$/,
           type: "asset/resource",
+          generator: {
+            filename: "assets/[name][ext][query]",
+          },
         },
       ],
     },
     plugins: [
-      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         filename: "taskpane.html",
         template: "./src/taskpane/taskpane.html",
@@ -64,10 +63,6 @@ module.exports = async (env, options) => {
       }),
       new CopyWebpackPlugin({
         patterns: [
-          {
-            from: "./src/taskpane/taskpane.css",
-            to: "taskpane.css",
-          },
           {
             from: "manifest*.xml",
             to: "[name]." + buildType + "[ext]",
