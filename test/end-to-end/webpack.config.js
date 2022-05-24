@@ -1,11 +1,10 @@
 /* eslint-disable no-undef */
 
 const devCerts = require("office-addin-dev-certs");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
-const urlDev = "https://localhost:3000/";
-const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require("path");
+const webpack = require("webpack");
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
@@ -13,20 +12,25 @@ async function getHttpsOptions() {
 }
 
 module.exports = async (env, options) => {
-  const dev = options.mode === "development";
+  // const dev = options.mode === "development";
   const config = {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      taskpane: "./src/taskpane/taskpane.js",
-      commands: "./src/commands/commands.js",
+      test: "./test/end-to-end/src/test-taskpane.ts",
     },
     output: {
+      path: path.resolve(__dirname, "testBuild"),
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
       clean: true,
     },
     resolve: {
-      extensions: [".html", ".js"],
+      extensions: [".ts", ".tsx", ".html", ".js"],
+      fallback: {
+        child_process: false,
+        fs: false,
+        os: require.resolve("os-browserify/browser"),
+      },
     },
     module: {
       rules: [
@@ -39,6 +43,21 @@ module.exports = async (env, options) => {
               presets: ["@babel/preset-env"],
             },
           },
+        },
+        {
+          test: /\.ts$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-typescript"],
+            },
+          },
+        },
+        {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          use: "ts-loader",
         },
         {
           test: /\.html$/,
@@ -55,10 +74,13 @@ module.exports = async (env, options) => {
       ],
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        process: "process/browser",
+      }),
       new HtmlWebpackPlugin({
         filename: "taskpane.html",
-        template: "./src/taskpane/taskpane.html",
-        chunks: ["polyfill", "taskpane"],
+        template: "./test/end-to-end/src/test-taskpane.html",
+        chunks: ["polyfill", "test"],
       }),
       new CopyWebpackPlugin({
         patterns: [
@@ -66,26 +88,13 @@ module.exports = async (env, options) => {
             from: "assets/*",
             to: "assets/[name][ext][query]",
           },
-          {
-            from: "manifest*.xml",
-            to: "[name]" + "[ext]",
-            transform(content) {
-              if (dev) {
-                return content;
-              } else {
-                return content.toString().replace(new RegExp(urlDev, "g"), urlProd);
-              }
-            },
-          },
         ],
-      }),
-      new HtmlWebpackPlugin({
-        filename: "commands.html",
-        template: "./src/commands/commands.html",
-        chunks: ["polyfill", "commands"],
       }),
     ],
     devServer: {
+      static: {
+        directory: "testBuild",
+      },
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
