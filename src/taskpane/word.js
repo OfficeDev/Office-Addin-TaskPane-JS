@@ -4,6 +4,7 @@
  */
 
 /* global document, Office, Word */
+import "./taskpane.css";
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {

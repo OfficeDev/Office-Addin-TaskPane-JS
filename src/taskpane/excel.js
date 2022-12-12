@@ -4,6 +4,7 @@
  */
 
 /* global console, document, Excel, Office */
+import "./taskpane.css";
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Excel) {

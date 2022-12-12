@@ -4,6 +4,7 @@
  */
 
 /* global document, Office */
+import "./taskpane.css";
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.OneNote) {
