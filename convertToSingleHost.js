@@ -7,6 +7,7 @@ const hosts = ["excel", "onenote", "outlook", "powerpoint", "project", "word"];
 const path = require("path");
 const util = require("util");
 const testPackages = [
+  "@babel/preset-typescript",
   "@types/mocha",
   "@types/node",
   "current-processes",
@@ -14,7 +15,9 @@ const testPackages = [
   "office-addin-mock",
   "office-addin-test-helpers",
   "office-addin-test-server",
+  "ts-loader",
   "ts-node",
+  "typescript",
 ];
 const readFileAsync = util.promisify(fs.readFile);
 const unlinkFileAsync = util.promisify(fs.unlink);
@@ -169,6 +172,7 @@ async function deleteSupportFiles() {
   await unlinkFileAsync("./convertToSingleHost.js");
   await unlinkFileAsync(".npmrc");
   await unlinkFileAsync("package-lock.json");
+  await unlinkFileAsync("tsconfig.json"); // used only for test file building in js project
 }
 
 /**
