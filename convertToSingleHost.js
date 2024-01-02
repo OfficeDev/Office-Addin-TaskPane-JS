@@ -35,6 +35,9 @@ async function modifyProjectForSingleHost(host) {
 }
 
 async function convertProjectToSingleHost() {
+  // Delete the test folder
+  deleteFolder(path.resolve(`./test`));
+
   // delete the .github folder
   deleteFolder(path.resolve(`./.github`));
 
