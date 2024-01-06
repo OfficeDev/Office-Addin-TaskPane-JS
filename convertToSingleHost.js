@@ -152,7 +152,6 @@ async function deleteJSONManifestRelatedFiles() {
 }
 
 async function deleteXMLManifestRelatedFiles() {
-  await unlinkFileAsync("webpack.config.js");
   await unlinkFileAsync("manifest.xml");
 }
 
