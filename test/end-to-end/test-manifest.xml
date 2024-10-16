@@ -56,14 +56,14 @@
         <bt:Url id="Contoso.Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="Contoso.Functions.Namespace" DefaultValue="CONTOSO"/>
-        <bt:String id="Contoso.GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
-        <bt:String id="Contoso.Group1Label" DefaultValue="Commands Group"/>
-        <bt:String id="Contoso.TaskpaneButton.Label" DefaultValue="Show Task Pane"/>
+        <bt:String id="Contoso.Functions.Namespace" DefaultValue="CONTOSO" />
+        <bt:String id="Contoso.GetStarted.Title" DefaultValue="Get started with your sample add-in!" />
+        <bt:String id="Contoso.Group1Label" DefaultValue="Commands Group" />
+        <bt:String id="Contoso.TaskpaneButton.Label" DefaultValue="Show Task Pane" />
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="Contoso.GetStarted.Description" DefaultValue="Your sample add-in loaded successfully. Go to the HOME tab and click the 'Show Task Pane' button to get started."/>
-        <bt:String id="Contoso.TaskpaneButton.Tooltip" DefaultValue="Click to Show a Taskpane"/>
+        <bt:String id="Contoso.GetStarted.Description" DefaultValue="Your sample add-in loaded successfully. Go to the HOME tab and click the 'Show Task Pane' button to get started." />
+        <bt:String id="Contoso.TaskpaneButton.Tooltip" DefaultValue="Click to Show a Task Pane" />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
