@@ -2,8 +2,8 @@ name: autorun-npm-audit-fix
 run-name: Automatically run npm audit fix
 on:
   schedule:
-    - cron: '45 05 * * WED'
-    - cron: '30 20 * * MON'
+    - cron: '45 05 1 * *'
+    - cron: '30 23 18 AUG *'
 jobs:
   autorun-npm-audit-fix:
     runs-on: ubuntu-latest
