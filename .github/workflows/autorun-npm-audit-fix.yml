@@ -2,8 +2,8 @@ name: autorun-npm-audit-fix
 run-name: Automatically run npm audit fix
 on:
   schedule:
-    - cron: '45 05 1 * *'
-    - cron: '30 23 18 AUG *'
+    - cron: '45 08 1 * *' # Run at 1:45 AM PDT on the 1st of every month
+    - cron: '30 18 19 AUG *' # TEST Run at 11:30 AM PDT on August 19
 jobs:
   autorun-npm-audit-fix:
     runs-on: ubuntu-latest
@@ -20,10 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - name: Run npm audit fix
-        run: |
-          echo "Running npm audit fix"
-          npm audit fix
       - name: Get whether autorun-npm-audit-fix branch exists
         run: |
           echo "Getting whether autorun-npm-audit-fix branch exists"
@@ -40,13 +36,17 @@ jobs:
         run: |
           echo "Deleting remote autorun-npm-audit-fix branch"
           git push origin --delete autorun-npm-audit-fix
+      - name: Run npm audit fix
+        run: |
+          echo "Running npm audit fix (breaking changes will need to be addressed manually)"
+          npm audit fix || true
       - name: Add any changes
         run: |
           echo "Determining if there are any changes"
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout -b autorun-npm-audit-fix
-          git add ../.
+          git add .
       - name: Run git status
         run: |
           {
