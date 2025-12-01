@@ -4,7 +4,6 @@ import { OfficeMockObject } from "office-addin-mock";
 
 /* global describe, global, it, require */
 
-
 // office-addin-mock needs to be able to handle collections like "Slides" and "Shapes" before we can fully verify load and sync behavior.
 // For now, we're using and not completely mocked object to verify the general flow.
 
