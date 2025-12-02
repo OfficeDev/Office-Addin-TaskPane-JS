@@ -46,7 +46,7 @@ const OfficeMockData = {
 
 describe("PowerPoint", function () {
   it("Run", async function () {
-    
+
     const pptMock: OfficeMockObject = new OfficeMockObject(PowerPointMockData); // Mocking the host specific namespace
     global.PowerPoint = pptMock as any;
     global.Office = new OfficeMockObject(OfficeMockData) as any; // Mocking the common office-js namespace

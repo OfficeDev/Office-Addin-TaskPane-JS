@@ -23,7 +23,7 @@ async function getText(): Promise<string> {
     await context.sync();
 
     const textboxShapes = shapes.items.filter(shape => shape.name === "GreetingTextbox");
-      
+
     if (textboxShapes.length > 0) {
       const textFrame = textboxShapes[0].textFrame.load("textRange");
       await context.sync();
@@ -34,7 +34,6 @@ async function getText(): Promise<string> {
     }
   });
 }
-
 export async function runTest(): Promise<void> {
   // Execute taskpane code
   await run();
