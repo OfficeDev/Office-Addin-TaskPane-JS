@@ -19,13 +19,11 @@ export async function run() {
    */
   await PowerPoint.run(async (context) => {
     const shapes = context.presentation.slides.getItemAt(0).shapes;
-    const shapeOptions = {
-      left: 100,
-      top: 300,
-      height: 300,
-      width: 450,
-    };
-    const textbox = shapes.addTextBox("Hello World!", shapeOptions);
+    const textbox = shapes.addTextBox("Hello World!");
+    textbox.left = 100;
+    textbox.top = 100;
+    textbox.height = 300;
+    textbox.width = 450;
     textbox.name = "GreetingTextbox";
     await context.sync();
   });
