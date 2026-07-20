@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "baseUrl": ".",
         "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "noEmitOnError": true,
         "outDir": "lib",
         "sourceMap": true,
-        "target": "es5",
+        "strict": true,
+        "target": "es6"
     },
     "exclude": [
         "node_modules",
