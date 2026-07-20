@@ -4,26 +4,36 @@ import { OfficeMockObject } from "office-addin-mock";
 
 /* global describe, global, it, require, Word */
 
-const WordMockData = {
-  context: {
-    document: {
-      body: {
-        paragraph: {
-          font: {},
-          text: "",
-        },
-        insertParagraph: function (paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph {
-          this.paragraph.text = paragraphText;
-          this.paragraph.insertLocation = insertLocation;
-          return this.paragraph;
-        },
+type MockParagraph = {
+  font: {
+    color?: string;
+  };
+  insertLocation?: string;
+  text: string;
+};
+
+const wordMockContext = {
+  document: {
+    body: {
+      paragraph: {
+        font: {},
+        text: "",
+      } as MockParagraph,
+      insertParagraph: function (paragraphText: string, insertLocation: string): MockParagraph {
+        this.paragraph.text = paragraphText;
+        this.paragraph.insertLocation = insertLocation;
+        return this.paragraph;
       },
     },
   },
+};
+
+const WordMockData = {
+  context: wordMockContext,
   InsertLocation: {
     end: "End",
   },
-  run: async function (callback) {
+  run: async function (callback: (context: typeof wordMockContext) => Promise<void> | void) {
     await callback(this.context);
   },
 };

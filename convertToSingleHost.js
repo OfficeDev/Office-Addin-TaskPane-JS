@@ -187,6 +187,7 @@ async function deleteSupportFiles() {
   await unlinkFileAsync(".npmrc");
   await unlinkFileAsync("package-lock.json");
   await unlinkFileAsync("tsconfig.json"); // used only for test file building in js project
+  await unlinkFileAsync("jsconfig.json"); // used only for distinguishing between js and ts projects
 }
 
 async function deleteJSONManifestRelatedFiles() {

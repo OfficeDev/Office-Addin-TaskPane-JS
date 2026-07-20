@@ -7,11 +7,11 @@ import * as testHelpers from "./test-helpers";
 const port: number = 4201;
 let testValues: any = [];
 
-Office.onReady(async (info) => {
+Office.onReady(async (info: { host: Office.HostType }) => {
   if (info.host === Office.HostType.PowerPoint) {
     try {
-      const testServerResponse: object = await pingTestServer(port);
-      if (testServerResponse["status"] == 200) {
+      const testServerResponse = (await pingTestServer(port)) as { status?: number };
+      if (testServerResponse.status == 200) {
         await runTest();
       } else {
         testHelpers.addErrorResult(testValues, `Ping failed: ${JSON.stringify(testServerResponse)}`);
@@ -25,12 +25,12 @@ Office.onReady(async (info) => {
 });
 
 async function getText(): Promise<string> {
-  return PowerPoint.run(async (context) => {
+  return PowerPoint.run(async (context: PowerPoint.RequestContext) => {
     const shapes = context.presentation.slides.getItemAt(0).shapes;
     shapes.load("items");
     await context.sync();
 
-    const textboxShapes = shapes.items.filter(shape => shape.name === "GreetingTextbox");
+    const textboxShapes = shapes.items.filter((shape: PowerPoint.Shape) => shape.name === "GreetingTextbox");
 
     if (textboxShapes.length > 0) {
       const textFrame = textboxShapes[0].textFrame.load("textRange");

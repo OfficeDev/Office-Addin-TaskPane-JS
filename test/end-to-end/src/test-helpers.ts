@@ -47,11 +47,18 @@ export async function closeWorkbook(): Promise<void> {
   await Excel.run(async (context) => context.workbook.close(Excel.CloseBehavior.skipSave));
 }
 
+export type TestResult = {
+  expectedValue: any;
+  resultName: string;
+  resultValue: any;
+};
+
 export function addTestResult(testValues: any[], resultName: string, resultValue: any, expectedValue: any) {
-  var data = {};
-  data["expectedValue"] = expectedValue;
-  data["resultName"] = resultName;
-  data["resultValue"] = resultValue;
+  const data: TestResult = {
+    expectedValue,
+    resultName,
+    resultValue,
+  };
   testValues.push(data);
 }
 

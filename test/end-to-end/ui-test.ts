@@ -23,9 +23,9 @@ hosts.forEach(function (host) {
       this.timeout(0);
       // Start test server and ping to ensure it's started
       const testServerStarted = await testServer.startTestServer(true /* mochaTest */);
-      const serverResponse = await officeAddinTestHelpers.pingTestServer(testServerPort);
+      const serverResponse = (await officeAddinTestHelpers.pingTestServer(testServerPort)) as { status?: number };
       assert.strictEqual(testServerStarted, true);
-      assert.strictEqual(serverResponse["status"], 200);
+      assert.strictEqual(serverResponse.status, 200);
 
       // Call startDebugging to start dev-server and sideload
       const devServerCmd = `npm run dev-server -- --config ./test/end-to-end/webpack.config.js `;
@@ -41,7 +41,7 @@ hosts.forEach(function (host) {
       describe(`Get test results for ${host} taskpane project`, function () {
         it("Validate expected result count", async function () {
           this.timeout(testResultsTimeout + 10000);
-          let timeoutId: ReturnType<typeof setTimeout>;
+          let timeoutId: ReturnType<typeof setTimeout> | undefined;
           const timeoutPromise = new Promise<never>((_, reject) => {
             timeoutId = setTimeout(
               () =>
@@ -58,7 +58,9 @@ hosts.forEach(function (host) {
           try {
             testValues = await Promise.race([testServer.getTestResults(), timeoutPromise]);
           } finally {
-            clearTimeout(timeoutId);
+            if (timeoutId !== undefined) {
+              clearTimeout(timeoutId);
+            }
           }
 
           const errorResult = testValues.find((v: any) => v.resultName === "test-error");

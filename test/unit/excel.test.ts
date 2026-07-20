@@ -4,21 +4,23 @@ import { OfficeMockObject } from "office-addin-mock";
 
 /* global describe, global, it, require */
 
-const ExcelMockData = {
-  context: {
-    workbook: {
-      range: {
-        address: "G4",
-        format: {
-          fill: {},
-        },
-      },
-      getSelectedRange: function () {
-        return this.range;
+const excelMockContext = {
+  workbook: {
+    range: {
+      address: "G4",
+      format: {
+        fill: {},
       },
     },
+    getSelectedRange: function () {
+      return this.range;
+    },
   },
-  run: async function (callback) {
+};
+
+const ExcelMockData = {
+  context: excelMockContext,
+  run: async function (callback: (context: typeof excelMockContext) => Promise<void> | void) {
     await callback(this.context);
   },
 };

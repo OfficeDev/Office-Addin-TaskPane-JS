@@ -7,11 +7,11 @@ import * as testHelpers from "./test-helpers";
 const port: number = 4201;
 let testValues: any = [];
 
-Office.onReady(async (info) => {
+Office.onReady(async (info: { host: Office.HostType }) => {
   if (info.host === Office.HostType.Word) {
     try {
-      const testServerResponse: object = await pingTestServer(port);
-      if (testServerResponse["status"] == 200) {
+      const testServerResponse = (await pingTestServer(port)) as { status?: number };
+      if (testServerResponse.status == 200) {
         await runTest();
       } else {
         testHelpers.addErrorResult(testValues, `Ping failed: ${JSON.stringify(testServerResponse)}`);
@@ -29,7 +29,7 @@ export async function runTest() {
     await run();
     await testHelpers.sleep(2000);
 
-    await Word.run(async (context) => {
+    await Word.run(async (context: Word.RequestContext) => {
       var firstParagraph = context.document.body.paragraphs.getFirst();
       firstParagraph.load("text");
       await context.sync();
