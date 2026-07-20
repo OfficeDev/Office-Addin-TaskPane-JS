@@ -4,13 +4,15 @@
         "checkJs": false,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "commonjs",
-        "moduleResolution": "bundler",
+        "module": "node16",
+        "moduleResolution": "node16",
         "noEmit": true,
         "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
         "target": "es6",
+        "lib": ["es2015", "dom"],
+        "types": ["mocha", "node", "office-js", "office-runtime"]
     },
     "include": ["./**/*.ts"]
 }
