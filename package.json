@@ -31,7 +31,6 @@
     "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "mocha -r ./test/register-ts-node.js test/end-to-end/*.ts",
     "test:unit": "mocha -r ./test/register-ts-node.js test/unit/*.test.ts",
-    "typecheck:test": "tsc -p ./test/tsconfig.json --noEmit",
     "validate": "office-addin-manifest validate manifest.xml",
     "watch": "webpack --mode development --watch"
   },
