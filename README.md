@@ -6,6 +6,13 @@ This repository contains the source code used by the [Yo Office generator](https
 
 This template is written using JavaScript. For the [TypeScript](http://www.typescriptlang.org/) version of this template, go to [Office-Addin-TaskPane](https://github.com/OfficeDev/Office-Addin-TaskPane).
 
+## npm registry auth
+Run the following command to get the authenticator for the first time:
+
+`npm install --global @microsoft/artifacts-npm-credprovider --registry https://pkgs.dev.azure.com/artifacts-public/23934c1b-a3b5-4b70-9dd3-d1bef4cc72a0/_packaging/AzureArtifacts/npm/registry/`
+
+Run `artifacts-npm-credprovider` to authenticate for the npm registry.
+
 ## Debugging
 
 This template supports debugging using any of the following techniques:
